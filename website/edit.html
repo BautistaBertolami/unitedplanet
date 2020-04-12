@@ -1,0 +1,71 @@
+<html>
+<head>
+	<title>Edit Contact</title>
+	<script type="text/javascript" src="js/md5.js"></script>
+	<script type="text/javascript" src="js/code.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="css/styles.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+</head>
+<body>
+
+	<!-- <h1 id="title1">Connect Us Editor</h1> -->
+	<div id="editDiv">
+		<form>
+			<div class = "form-group-md">
+				<span id="name" class="text"></span>
+				<input
+						type = "text"
+						id="fullName"
+						class = "form-control"
+						placeholder="Name"
+						onkeypress="if(event.keyCode == 13) {editPage(localStorage['id'])}"
+				>
+			</div>
+			<div class = "form-group-md">
+				<span id="number" class="text"></span>
+				<input
+						type = "text"
+						id="Phonenumber"
+						class = "form-control"
+						placeholder="Phone"
+						onkeypress="if(event.keyCode == 13) {editPage(localStorage['id'])}"
+				>
+			</div>
+			<div class = "form-group-md">
+				<span id="emailDisp" class="text"></span>
+				<input
+						type = "text"
+						id="Email"
+						class = "form-control"
+						placeholder="Email"
+						onkeypress="if(event.keyCode == 13) {editPage(localStorage['id'])}"
+				>
+			</div>
+			<div class = "form-group-md">
+				<span id="countryDisp" class="text"></span>
+				<input
+						type = "text"
+						id="Country"
+						class = "form-control"
+						placeholder="Address"
+						onkeypress="if(event.keyCode == 13) {editPage(localStorage['id'])}"
+				>
+			</div>
+			<button type="button" id="returnButton" class="buttons" onclick="window.location.href = 'contact.html';"> Back to home </button>
+			<button type="button" id="editButton2" class="buttons" onclick="editPage(localStorage['id']);"> Save </button>
+			<span id="editResult"></span>
+		</form>
+		<!--
+		<input type="text" id="fullName" onkeypress="if(event.keyCode == 13) {editPage(localStorage['id'])}" value="" placeholder="Name" /><br />
+		<input type="text" id="Phonenumber" onkeypress="if(event.keyCode == 13) {editPage(localStorage['id'])}" value="" placeholder="Phone Number" /><br />
+		<input type="text" id="Email" onkeypress="if(event.keyCode == 13) {editPage(localStorage['id'])}" value="" placeholder="Email" /><br />
+		-->
+	</div>
+
+	<script type="text/javascript">var id = localStorage["id"]; editButton(id);</script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+	<title>Connect Us Contact Manager</title>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script type="text/javascript" src="js/md5.js"></script>
+	<script type="text/javascript" src="js/code.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="css/styles.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
+</head>
+
+<body>
+<script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+<br/><br/><br/><br/>
+<h1 id="title">United Planet</h1>
+<div id="loginDiv" class = "container-fluid">
+	<div class = "row">
+		<div class = "col-md-6">
+			<form>
+				<div class = "form-group-md">
+					<input
+					 		type = "text"
+							id="loginName"
+							class = "form-control"
+							placeholder="Username"
+							onkeypress="if(event.keyCode == 13) {doLogin()}"
+					>
+				</div>
+				<div class = "form-group-md">
+					<input
+					 		type = "password"
+							id="loginPassword"
+							class = "form-control"
+							placeholder="Password"
+							onkeypress="if(event.keyCode == 13) {doLogin()}"
+					>
+				</div>
+			</form>
+			<div class = "row">
+				<div class = "col-md-6">
+					<button type="button" id="registerButton" class="buttons" onclick="window.location='register.html'"> Sign Up <ion-icon name="create"></ion-icon></button>
+				</div>
+				<div class = "col-md-6">
+					<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Login <ion-icon name="arrow-round-forward"></ion-icon></button>
+				</div>
+			</div>
+			<span id="loginResult"></span>
+			<span>Forgot your password? </span>
+			<a id="resetPasswordShower" type="button" data-toggle="collapse" data-target="#collapseResetPassword" aria-expanded="false" aria-controls="collapseExample">
+				<font color="blue">Click here</font>
+		  </a>
+			<div class="collapse" id="collapseResetPassword">
+				<form class="input">
+					<input
+						type = "text"
+						id="resetEmail"
+						class = "form-control"
+						placeholder="Email"
+						onkeypress="if(event.keyCode == 13) {doResetPassword()}"
+					>
+					<button type="button" id="resetPasswordButton" class="buttons" onClick="doResetPassword()">
+						Send reset Email
+					</button>
+					<span id="resetEmailResult"></span>
+				</form>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div id = "separator">
+			</div>
+		</div>
+		<div class = "col">
+			<img src="/project2/images/LogoV2.png" class="img-fluid" alt="Responsive Image">
+		</div>
+	</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+</html>

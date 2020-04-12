@@ -1,0 +1,97 @@
+<html>
+<head>
+	<title>Connect Us Contact Manager</title>
+	<script type="text/javascript" src="js/code.js"></script>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="css/styles.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
+	<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function()
+	{
+		readCookie();
+	}, false);
+	</script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+	<span id="userName" class="navbar-brand"></span>
+	<form class="from-inline input-group">
+    <input class="form-control" id="searchText" type="search" placeholder="Search" onkeypress="if(event.keyCode == 13) {searchContact()}">
+    <button type="button" id="searchContactButton" class="navbar-button" onclick="searchContact();">
+			<ion-icon name="search"></ion-icon>
+		</button>
+		<button type="button" id="logoutButton" class="navbar-button" onclick="doLogout();">
+			<ion-icon name="log-out"></ion-icon>
+		</button>
+		<button id="addContactFormButton" type="button" data-toggle="collapse" data-target="#collapseContact" aria-expanded="false" aria-controls="collapseExample">
+	    <ion-icon name="person-add"></ion-icon>
+	  </button>
+  </form>
+</nav>
+	<div class="collapse" id="collapseContact">
+		<form>
+			<div class = "form-group-md">
+				<input
+						type = "text"
+						id="contactText"
+						class = "form-control"
+						placeholder="Name"
+						onkeypress="if(event.keyCode == 13) {addContact()}"
+				>
+			</div>
+			<div class = "form-group-md">
+				<input
+						type = "text"
+						id="phoneNumber"
+						class = "form-control"
+						placeholder="Phone"
+						onkeypress="if(event.keyCode == 13) {addContact()}"
+				>
+			</div>
+			<div class = "form-group-md">
+				<input
+						type = "text"
+						id="email"
+						class = "form-control"
+						placeholder="Email"
+						onkeypress="if(event.keyCode == 13) {addContact()}"
+				>
+			</div>
+			<div class = "form-group-md">
+				<input
+						type = "text"
+						id="country"
+						class = "form-control"
+						placeholder="Address"
+						onkeypress="if(event.keyCode == 13) {addContact()}"
+				>
+			</div>
+			<button type="button" id="addContactButton" class="button" onclick="addContact();">
+				 Add Contact <ion-icon name="person-add"></ion-icon>
+			</button>
+		</form>
+	</div>
+
+<div id="accessUIDiv">
+	<span id="contactAddResult"></span>
+	<span id="contactSearchResult"></span>
+	<div id="contactListDiv">
+		<p id="contactList"><script type="text/javascript">readCookie();searchContact();</script></p>
+	</div>
+	<br/>
+</div>
+
+
+<script type="module" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule="" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+</html>
