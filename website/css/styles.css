@@ -1,6 +1,6 @@
 body
 {
-background-image: url(/project2/images/BackgroundGradiant.jpg);}
+background-image: url(/images/Backgroundgradiant.jpg);}
 
 #title
 {
@@ -74,10 +74,14 @@ background-image: url(/project2/images/BackgroundGradiant.jpg);}
 #accessUIDiv
 {
     font-size: 30px;
-    width: 80%;
-    margin-left: 10%;
+    width: 100%;
     padding: 25px;
     background-color: #f2f2f2;
+}
+
+#unityContainer{
+  width: 100%;
+  height: 100%;
 }
 
 .navbarimg {
@@ -362,5 +366,23 @@ select{
 }
 
 #results{
-  font-size: 30px;
+  font-size: 15px;
+}
+
+#unityWindow{
+  margin-top: -10%;
+}
+
+.navbar-custom{
+  background-color: #505FC4;
+}
+
+.navbar-brand
+{
+  font-size: 10px !important;
+}
+
+.navbar
+{
+  height: 80px;
 }

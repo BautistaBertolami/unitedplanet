@@ -1,4 +1,10 @@
 <?php
+	include_once 'Core.php';
+	include_once '../php_jwt/src/JWT.php';
+	include_once '../php_jwt/src/ExpiredException.php';
+	include_once '../php_jwt/src/SignatureInvalidException.php';
+	include_once '../php_jwt/src/BeforeValidException.php';
+	use \Firebase\JWT\JWT;
 
 	$inData = getRequestInfo();
 
@@ -7,14 +13,14 @@
 	$lastName = "";
 	$validationStatus = 0;
 
-	$conn = new mysqli("localhost", "1109270", "Poosproject321", "1109270");
+	$conn = new mysqli("localhost", "1112946", "Poosproject321", "1112946");
 	if ($conn->connect_error)
 	{
 		returnWithError( $conn->connect_error );
 	}
 	else
 	{
-		$sql = "SELECT ID,FirstName,LastName,ValidationStatus FROM Users where Login='" . $inData["login"] . "' and Password='" . $inData["password"] . "'";
+		$sql = "SELECT ID,FirstName,LastName,ValidationStatus,Email FROM Users where Login='" . $inData["login"] . "' and Password='" . $inData["password"] . "'";
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0)
 		{
@@ -23,8 +29,31 @@
 			$firstName = $row["FirstName"];
 			$lastName = $row["LastName"];
 			$validationStatus = $row["ValidationStatus"];
+			$email =$row["Email"];
 			$id = $row["ID"];
-			returnWithInfo($firstName, $lastName, $id, $validationStatus );
+			// this is where we add the creation of a JWT
+			$token = array(
+				"iss" => $iss,
+				"aud" => $aud,
+				"iat" => $iat,
+				"nbf" => $nbf,
+				"exp" => $exp,
+				"data" => array(
+					"id" => $id,
+					"firstname" => $firstName,
+					"lastname" => $lastName,
+					"email" => $email
+					
+				)
+			 );
+		  
+			 // set response code
+			 http_response_code(200);
+		  
+			 // generate jwt
+			 $jwt = JWT::encode($token, $key);
+
+			returnWithInfo($firstName, $lastName, $id, $validationStatus, $jwt );
 		}
 		else
 		{
@@ -50,9 +79,9 @@
 		sendResultInfoAsJson( $retValue );
 	}
 
-	function returnWithInfo( $firstName, $lastName, $id, $validationStatus )
+	function returnWithInfo( $firstName, $lastName, $id, $validationStatus, $jwt )
 	{
-		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","validationStatus":"' . $validationStatus . '","error":""}';
+		$retValue = '{"message":"Successful login.","id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","validationStatus":"' . $validationStatus . '","jwt":"' . $jwt .'","error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 

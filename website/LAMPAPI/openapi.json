@@ -1,0 +1,366 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "United Planet API",
+    "version" : "1"
+  },
+  "servers" : [ {
+    "url" : "http://www.unitedplanet.ga/LAMPAPI"
+  } ],
+  "paths" : {
+    "/Register.php" : {
+      "post" : {
+        "summary" : "adds user to database",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "User created, validation email sent"
+          }
+        }
+      }
+    },
+    "/Login.php" : {
+      "post" : {
+        "summary" : "retrieves user data for login",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_1"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Json object with userID, firstname, lastname, validationstatus, jwt"
+          }
+        }
+      }
+    },
+    "/AddContact.php" : {
+      "post" : {
+        "summary" : "adds a new contact",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_2"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Adds new contact, return empty error if it works"
+          }
+        }
+      }
+    },
+    "/EditSearch.php" : {
+      "post" : {
+        "summary" : "returns the data of the contact that will be edited",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_3"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "returns contact to edit"
+          }
+        }
+      }
+    },
+    "/EditContact.php" : {
+      "post" : {
+        "summary" : "edits a contact",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_4"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "returns edited contact"
+          }
+        }
+      }
+    },
+    "/DeleteContact.php" : {
+      "post" : {
+        "summary" : "deletes a contact",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_5"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "deleted user"
+          }
+        }
+      }
+    },
+    "/SearchContacts.php" : {
+      "post" : {
+        "summary" : "returns a list of all contacts associated with this id and the search string if empty returns all contacts",
+        "requestBody" : {
+          "content" : {
+            "apllication/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_6"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "json object list of contacts"
+          }
+        }
+      }
+    },
+    "/Reset.php" : {
+      "post" : {
+        "summary" : "sends a reset email to the specified account email address",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_7"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "returns a string that says if the email was validated or not"
+          }
+        }
+      }
+    },
+    "/ResetPassword.php" : {
+      "post" : {
+        "summary" : "this is called on the link sent by the reset.php api",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_8"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "returns a string that states whether the password actually reset"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "body" : {
+        "type" : "object",
+        "properties" : {
+          "FirstName" : {
+            "type" : "string"
+          },
+          "LastName" : {
+            "type" : "string"
+          },
+          "Login" : {
+            "type" : "string"
+          },
+          "Password" : {
+            "type" : "string"
+          },
+          "Email" : {
+            "type" : "string"
+          },
+          "Validation" : {
+            "type" : "string"
+          },
+          "ValidationStatus" : {
+            "type" : "integer"
+          }
+        },
+        "example" : {
+          "FirstName" : "Swagger",
+          "LastName" : "User",
+          "Login" : "Swaggeruserlogin",
+          "Password" : "098f6bcd4621d373cade4e832627b4f6",
+          "Email" : "insert10minemail",
+          "Validation" : "6ea2ef7311b482724a9b7b0bc0dd85c6",
+          "ValidationStatus" : 0
+        }
+      },
+      "body_1" : {
+        "type" : "object",
+        "properties" : {
+          "login" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "login" : "coolguy",
+          "password" : "098f6bcd4621d373cade4e832627b4f6"
+        }
+      },
+      "body_2" : {
+        "type" : "object",
+        "properties" : {
+          "contact" : {
+            "type" : "string"
+          },
+          "userId" : {
+            "type" : "integer"
+          },
+          "phoneNumber" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "address" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "contact" : "bestfriend",
+          "userId" : 48,
+          "phoneNumber" : 9541234444,
+          "email" : "bestfriend@gmail.com",
+          "address" : "Florida"
+        }
+      },
+      "body_3" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer"
+          }
+        },
+        "example" : {
+          "id" : 86
+        }
+      },
+      "body_4" : {
+        "type" : "object",
+        "properties" : {
+          "contact" : {
+            "type" : "string"
+          },
+          "phoneNumber" : {
+            "type" : "string"
+          },
+          "userId" : {
+            "type" : "integer"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "address" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "contact" : "newName",
+          "phoneNumber" : 555555555,
+          "userId" : 91,
+          "email" : "notbestfriend@gmail.com",
+          "address" : "Georgia"
+        }
+      },
+      "body_5" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer"
+          }
+        },
+        "example" : {
+          "id" : 102
+        }
+      },
+      "body_6" : {
+        "type" : "object",
+        "properties" : {
+          "search" : {
+            "type" : "string"
+          },
+          "userId" : {
+            "type" : "integer"
+          }
+        },
+        "example" : {
+          "userId" : 48
+        }
+      },
+      "body_7" : {
+        "type" : "object",
+        "properties" : {
+          "ResetEmail" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "ResetEmail" : "use10minemail"
+        }
+      },
+      "body_8" : {
+        "type" : "object",
+        "properties" : {
+          "email" : {
+            "type" : "string"
+          },
+          "validation" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          }
+        },
+        "example" : {
+          "email" : "use10minemail",
+          "validation" : "usevalidationinaccount",
+          "password" : "5f4dcc3b5aa765d61d8327deb882cf99"
+        }
+      }
+    }
+  }
+}

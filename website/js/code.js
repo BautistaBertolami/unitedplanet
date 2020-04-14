@@ -1,5 +1,5 @@
 // This is the live site file
-var urlBase = '/project2/LAMPAPI';
+var urlBase = '/LAMPAPI';
 var extension = 'php';
 
 var userId = 0;
@@ -37,15 +37,20 @@ function newUser()
 		var req = xhr.send(jsonPayload);
 		if(xhr.responseText)
 		{
+
 			var jsonObject = JSON.parse( xhr.responseText );
-				if(jsonObject){
+                        console.log(jsonObject.hasOwnProperty('error'));
+				if(jsonObject.hasOwnProperty('error')){
 						document.getElementById("userAddResult").innerHTML = jsonObject["error"];
 						return;
-				}
-		}else
-			document.getElementById("userAddResult").innerHTML = "Account registered, please check email for validation link";
+				}else{
+            document.getElementById("userAddResult").innerHTML = jsonObject["corr"];
+            return;
+        }
+		}
 
-		saveCookie();
+
+		//saveCookie();
 		//window.location.href = "index.html";
 	}
 	catch(err)
@@ -163,9 +168,10 @@ function addContact()
 	var email = document.getElementById("email").value;
 	var country = document.getElementById("country").value;
 	var newContact = document.getElementById("contactText").value;
+        var coordinates = "0,0,70";
 	document.getElementById("contactAddResult").innerHTML = "";
 
-	var jsonPayload = '{"contact" : "' + newContact + '","userId" : "' + userId + '","phoneNumber":"' + phoneNumber + '","email":"' + email + '","country":"' + country + '"}';
+	var jsonPayload = '{"contact" : "' + newContact + '","userId" : "' + userId + '","phoneNumber":"' + phoneNumber + '","email":"' + email + '","address":"' + country + '","coordinates":"' + coordinates +'"}';
 	var url = urlBase + '/AddContact.' + extension;
 
 	var xhr = new XMLHttpRequest();
@@ -215,8 +221,10 @@ function editPage(id)
 	// document.getElementById("name").innerHTML = name;
 	// document.getElementById("number").innerHTML = number;
 	// document.getElementById("emailDisp").innerHTML = email;
+  console.log("testing editPage");
 
-	var jsonPayload = '{"Name" : "' + name + '","PhoneNumber" : "' + number + '","id" : "' + id + '","Email" : "' + email + '","Country" : "' + country + '"}';
+	var jsonPayload = '{"contact" : "' + name + '","phoneNumber" : "' + number + '","userId" : "' + id + '","email" : "' + email + '","address" : "' + country + '"}';
+	console.log(jsonPayload);
 	var url = urlBase + '/EditContact.' + extension;
 
 	var xhr = new XMLHttpRequest();
@@ -229,17 +237,19 @@ function editPage(id)
 			if (this.readyState == 4 && this.status == 200)
 			{
 				document.getElementById("editResult").innerHTML = "Contact has been Updated";
+                                console.log("im tired" + xhr.responseText);
 				var jsonObject = JSON.parse( xhr.responseText );
-
+				console.log("this is in editpage" + jsonObject.results);
 				if(jsonObject.results != undefined)
 				for( var i=0; i<jsonObject.results.length; i++ )
 				{
-					var arr = (jsonObject.results[i]).split(" ");
+					var arr = (jsonObject.results[i]).split("|");
 					var len = arr.length;
-					name = "";
-					number = arr[len - 4];
-					email = arr[len - 3];
-					country = arr[len - 2];
+					name = arr[0];
+					number = arr[1];
+					email = arr[2];
+					country = arr[3];
+                                        /*
 					if(len == 6)
 					{
 						name += arr[0] + " " + arr[1];
@@ -248,6 +258,7 @@ function editPage(id)
 					{
 						name += arr[0];
 					}
+                                        */
 					document.getElementById("name").innerHTML = name;
 					document.getElementById("number").innerHTML = number;
 					document.getElementById("emailDisp").innerHTML = email;
@@ -280,16 +291,19 @@ function editButton(id)
 			if (this.readyState == 4 && this.status == 200)
 			{
 				var jsonObject = JSON.parse( xhr.responseText );
-
+				console.log("testing edit button");
 				if(jsonObject.results != undefined)
 				for( var i=0; i<jsonObject.results.length; i++ )
 				{
-					var arr = (jsonObject.results[i]).split(" ");
+          console.log(jsonObject.results[i]);
+					var arr = (jsonObject.results[i]).split("|");
+					console.log(arr[0]);
 					var len = arr.length;
-					var name = "";
-					var number = arr[len - 4];
-					var email = arr[len - 3];
-					var country = arr[len - 2];
+					var name = arr[0];
+					var number = arr[1];
+					var email = arr[2];
+					var country = arr[3];
+                                        /*
 					if(len == 6)
 					{
 						name += arr[0] + " " + arr[1];
@@ -298,6 +312,7 @@ function editButton(id)
 					{
 						name += arr[0];
 					}
+                                        */
 					document.getElementById("name").innerHTML = name;
 					document.getElementById("number").innerHTML = number;
 					document.getElementById("emailDisp").innerHTML = email;
@@ -321,7 +336,9 @@ function edit(id)
 
 function deleteButton(id, num2)
 {
+        console.log(num2);
 	var text = document.getElementById("results").rows[num2].cells[0].innerHTML;
+        console.log(text);
 	var prompt = confirm("Are you sure you want to delete " + text);
 	if(prompt)
 	{
@@ -366,25 +383,29 @@ function searchContact()
 			{
 				//document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
 				var jsonObject = JSON.parse( xhr.responseText );
-				if(jsonObject.results != undefined)
+				console.log(xhr.responseText);
+				if(jsonObject.results != undefined && jsonObject.results != ""){
 				for( var i=0; i<jsonObject.results.length; i++ )
 				{
-					var arr = (jsonObject.results[i]).split(" ");
+					var arr = (jsonObject.results[i]).split("|");
 					var len = arr.length;
 					contactList += "<tr><td>" + arr[0]
 					var j = 1;
+					/*
 					while (j < len - 4)
 					{
 						contactList += " " + arr[j];
 						j++;
 					}
-					contactList += "</td></tr><tr><td>Phone:&emsp;" + arr[len - 4];
-					contactList += "</td></tr><tr><td>Email:&emsp;" + arr[len - 3];
-					contactList += "</td></tr><tr><td>Address:&emsp;" + arr[len - 2];
-					contactList += "</td><td>" + buttonString(arr[len - 1], i) + "</tr><tr><td><br></td></tr>";
+					*/
+					contactList += "</td></tr><tr><td>Phone:&emsp;" + arr[1];
+					contactList += "</td></tr><tr><td>Email:&emsp;" + arr[2];
+					contactList += "</td></tr><tr><td>Address:&emsp;" + arr[3];
+					contactList += "</td><td>" + buttonString(arr[5], i) + "</tr><tr><td><br></td></tr>";
 				}
 				contactList += "</table>";
 				document.getElementsByTagName("p")[0].innerHTML = contactList;
+                                }
 			}
 		};
 		xhr.send(jsonPayload);
@@ -403,7 +424,7 @@ function buttonString(id , num)
 	var editText = "editText" + num;
 	var editButton = "<button type='button' id='editButton' class='buttons2' onclick='edit(" + id + ")'> <ion-icon name='create'></ion-icon> </button>"; // added icon and style
 	var editBar = "<span id='" + editText + "' class = 'edit'></span>"
-	var deleteButton = "<button type='button' id='deleteButton' class='buttons2' onclick='deleteButton(" + id + ", " + num + ", " + ((num > 1)?((num - 1) * 4): (num * 4)) + ")'> <ion-icon name='trash'></ion-icon> </button><br />"; //added icon and style
+	var deleteButton = "<button type='button' id='deleteButton' class='buttons2' onclick='deleteButton(" + id + ", " + (num * 5) + ")'> <ion-icon name='trash'></ion-icon> </button><br />"; //added icon and style
 	return "&emsp;</td><td>" + editButton + "</td><td>" + editBar + "</td><td>" + deleteButton + "</td>";
 }
 
@@ -462,3 +483,4 @@ function actuallyResetPassword(email, validation, newPassword){
 	}
 
 }
+		

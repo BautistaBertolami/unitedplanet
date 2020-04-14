@@ -5,16 +5,17 @@
 	$searchResults = "";
 	$searchCount = 0;
 
-	$conn = new mysqli("localhost", "1109270", "Poosproject321", "1109270");
+	$conn = new mysqli("localhost", "1112946", "Poosproject321", "1112946");
 	if ($conn->connect_error)
 	{
 		returnWithError( $conn->connect_error );
 	}
 	else
 	{
-		$sql = "update Contacts Set Name ='" . $inData["Name"] . "',  PhoneNumber ='" . $inData["PhoneNumber"] . "', Email ='" . $inData["Email"] . "', Country ='" . $inData["Country"] . "' where ID = '" . $inData["id"] . "'";
+		// added two new columns
+                $sql = "update Contacts Set Name ='" . $inData["contact"] . "',  PhoneNumber ='" . $inData["phoneNumber"] . "', Email ='" . $inData["email"] . "', Address ='" . $inData["address"] . "', Coordinates ='" . $inData["coordinates"] . "' where ID = '" . $inData["userId"] . "'";
 		$conn->query($sql);
-		$sql = "select * from Contacts where ID = '" . $inData["id"] . "'";
+		$sql = "select * from Contacts where ID = '" . $inData["userId"] . "'";
 		$result = $conn->query($sql);
 			while($row = $result->fetch_assoc())
 			{
@@ -23,7 +24,8 @@
 					$searchResults .= ",";
 				}
 				$searchCount++;
-				$searchResults .= '"' . $row["Name"] . ' ' . $row["PhoneNumber"] . ' ' . $row["Email"] . ' ' . $row["Country"] . ' ' . $row["ID"] . '"';
+				// added two new columns
+				$searchResults .= '"' . $row["Name"] . ' | ' . $row["PhoneNumber"] . ' | ' . $row["Email"] . ' | ' . $row["Address"] . ' | ' . $row["Coordinates"] . " | " . $row["ID"] . '"';
 			}
 		$conn->close();
 	}
@@ -43,7 +45,7 @@
 
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue = '{"results":["what the heck"],"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 

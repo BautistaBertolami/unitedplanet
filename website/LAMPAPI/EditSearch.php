@@ -5,7 +5,7 @@
 	$searchResults = "";
 	$searchCount = 0;
 
-	$conn = new mysqli("localhost", "1109270", "Poosproject321", "1109270");
+	$conn = new mysqli("localhost", "1112946", "Poosproject321", "1112946");
 	if ($conn->connect_error)
 	{
 		returnWithError( $conn->connect_error );
@@ -21,7 +21,7 @@
 					$searchResults .= ",";
 				}
 				$searchCount++;
-				$searchResults .= '"' . $row["Name"] . ' ' . $row["PhoneNumber"] . ' ' . $row["Email"] . ' ' . $row["Country"] . ' ' . $row["ID"] . '"';
+				$searchResults .= '"' . $row["Name"] . ' | ' . $row["PhoneNumber"] . ' | ' . $row["Email"] . ' | ' . $row["Address"] . ' | ' . $row["Coordinates"] . " | " . $row["ID"] . '"';
 			}
 		$conn->close();
 	}

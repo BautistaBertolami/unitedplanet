@@ -14,7 +14,7 @@
 	$validationStatus = $inData["ValidationStatus"];
 	$err = "";
 
-	$conn = new mysqli("localhost", "1109270", "Poosproject321", "1109270");
+	$conn = new mysqli("localhost", "1112946", "Poosproject321", "1112946");
 	if ($conn->connect_error)
 	{
 		returnWithError( $conn->connect_error );
@@ -34,7 +34,7 @@
 					$sql_u = "SELECT * FROM Users WHERE Login='" . $login . "'";
 					$sql_e = "SELECT * FROM Users WHERE Email='" . $email . "'";
 					$res_u = mysqli_query($conn, $sql_u);
-			  	$res_e = mysqli_query($conn, $sql_e);
+                                        $res_e = mysqli_query($conn, $sql_e);
 
 					if (mysqli_num_rows($res_u) > 0)
 					{
@@ -42,7 +42,7 @@
 						$err .= "Username already exists";
 						returnWithError( $err );
 					}
-					else if (mysqli_num_rows($res_u) > 0)
+					else if (mysqli_num_rows($res_e) > 0)
 					{
 						//display email taken error
 						$err .= "Email already registered";
@@ -69,9 +69,9 @@
 
 								    // Content
 								    $mail->Subject = 'Signup | Verification';
-								    $mail->Body    = 'Thanks for signing up!<br>Your account has been created, you can login with the following credentials after you have activated your account by pressing the url below.<br><br>------------------------<br>Username: '.$login.'<br>Password: '.$passwrod.'<br>------------------------<br><br>Please click this link to activate your account:<br><a href="http://localhost/project2/verify.php?email='.$email.'&validation='.$validation.'">http://localhost/project2/verify.php?email='.$email.'&validation='.$validation.'</a>';
+								    $mail->Body    = 'Thanks for signing up!<br>Your account has been created, you can login with the following credentials after you have activated your account by pressing the url below.<br><br>------------------------<br>Username: '.$login.'<br>Password: '.$passwrod.'<br>------------------------<br><br>Please click this link to activate your account:<br><a href="http://www.unitedplanet.ga/verify.php?email='.$email.'&validation='.$validation.'">http://www.unitedplanet.ga/verify.php?email='.$email.'&validation='.$validation.'</a>';
 
-										//http://localhost/project2/verify.php?email='.$email.'&validation='.$validation.'
+										//http://www.unitedplanet.ga/verify.php?email='.$email.'&validation='.$validation.'
 										$mail->send();
 										$sql = "INSERT INTO Users (FirstName, LastName, Login, Password, Email, Validation, ValidationStatus) VALUES ('" . $firstName . "','" . $lastName . "','" . $login . "','" . $passwrod . "','" . $email . "','" . $validation . "','" . $validationStatus . "')";
 										if( $result = $conn->query($sql) != TRUE )
@@ -79,7 +79,10 @@
 											//echo "this sucks";
 											returnWithError( $conn->error );
 										}
+                                                                                 
 										$conn->close();
+                                                                                $corr = "Account registered, please check your email and validate the account";
+                                                                                returnWithSuccess( $corr );
 						} catch (Exception $e) {
 							// phpmailer could not send email
 							$error = "Invalid email address";
@@ -101,9 +104,14 @@
 		echo $obj;
 	}
 
+        function returnWithSuccess( $corr ){
+                $retValue = '{"corr":"' . $corr . '"}';
+                sendResultInfoAsJson( $retValue);
+        }
 	function returnWithError( $err )
 	{
 		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 ?>
+			

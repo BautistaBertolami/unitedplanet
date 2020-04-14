@@ -10,7 +10,7 @@
 
 	$resetEmail = $inData["ResetEmail"];
 
-	$conn = new mysqli("localhost", "1109270", "Poosproject321", "1109270");
+	$conn = new mysqli("localhost", "1112946", "Poosproject321", "1112946");
   if ($conn->connect_error)
 	{
 		returnWithError( $conn->connect_error );
@@ -57,7 +57,7 @@
 
           // Content
           $mail->Subject = 'Signup | Verification';
-          $mail->Body    = 'Hello '.$firstName.' '.$lastName.' you can reset password your by clicking the link below<br><br>------------------------<br><br>Please click this link to reset your account password:<br><a href="http://localhost/project2/resetPass.html?email='.$resetEmail.'&validation='.$validation.'">http://localhost/project2/resetPass.html?email='.$resetEmail.'&validation='.$validation.'</a>';
+          $mail->Body    = 'Hello '.$firstName.' '.$lastName.' you can reset password your by clicking the link below<br><br>------------------------<br><br>Please click this link to reset your account password:<br><a href="http://www.unitedplanet.ga/resetPass.html?email='.$resetEmail.'&validation='.$validation.'">http://www.unitedplanet.ga/resetPass.html?email='.$resetEmail.'&validation='.$validation.'</a>';
 
           //http://localhost/project2/verify.php?email='.$email.'&validation='.$validation.'
           $mail->send();
